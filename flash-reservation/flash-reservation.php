@@ -14,6 +14,76 @@
  * GitHub Branch: main
  */
 
+// Sécurité : empêcher accès direct
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+/**
+ * Enregistre les Custom Post Types
+ */
+function flash_reservation_register_cpts() {
+
+    // Liste des CPTs
+    $cpts = [
+        'bus' => [
+            'singular' => 'Bus',
+            'plural'   => 'Réservations Bus',
+            'menu_icon'=> 'dashicons-bus', // Dashicons ne contient pas bus, on pourra personnaliser plus tard
+        ],
+        'appartement' => [
+            'singular' => 'Appartement',
+            'plural'   => 'Appartements Meublés',
+            'menu_icon'=> 'dashicons-admin-home',
+        ],
+        'vol' => [
+            'singular' => 'Vol',
+            'plural'   => 'Billets d\'avion',
+            'menu_icon'=> 'dashicons-airplane',
+        ],
+        'evenement' => [
+            'singular' => 'Événement',
+            'plural'   => 'Événements à venir',
+            'menu_icon'=> 'dashicons-calendar-alt',
+        ],
+    ];
+
+    foreach ( $cpts as $slug => $data ) {
+
+        $labels = [
+            'name'               => $data['plural'],
+            'singular_name'      => $data['singular'],
+            'add_new'            => 'Ajouter',
+            'add_new_item'       => 'Ajouter un ' . $data['singular'],
+            'edit_item'          => 'Modifier ' . $data['singular'],
+            'new_item'           => 'Nouveau ' . $data['singular'],
+            'view_item'          => 'Voir ' . $data['singular'],
+            'view_items'         => 'Voir ' . $data['plural'],
+            'search_items'       => 'Rechercher ' . $data['plural'],
+            'not_found'          => 'Aucun ' . strtolower($data['singular']) . ' trouvé',
+            'not_found_in_trash' => 'Aucun ' . strtolower($data['singular']) . ' dans la corbeille',
+            'all_items'          => 'Tous les ' . $data['plural'],
+            'archives'           => 'Archives des ' . $data['plural'],
+        ];
+
+        $args = [
+            'labels'             => $labels,
+            'public'             => true,
+            'menu_icon'          => $data['menu_icon'],
+            'supports'           => ['title', 'editor', 'thumbnail', 'custom-fields'],
+            'has_archive'        => true,
+            'rewrite'            => ['slug' => $slug],
+            'show_in_rest'       => true, // Pour Gutenberg et Elementor
+        ];
+
+        register_post_type( $slug, $args );
+    }
+}
+add_action( 'init', 'flash_reservation_register_cpts' );
+
+
+
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
@@ -81,4 +151,5 @@ register_deactivation_hook( __FILE__, function() {
 } );
 
 Flash_Reservation_Plugin::init();
+
 
