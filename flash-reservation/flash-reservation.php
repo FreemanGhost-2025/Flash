@@ -3,7 +3,7 @@
  * Plugin Name: Flash Reservation
  * Plugin URI: https://github.com/FreemanGhost-2025/Flash
  * Description: Plugin de réservation (bus, apparts, vols, événements). Intègre shortcodes et widgets Elementor. Fournit CPTs, endpoints REST, admin calendar et stubs paiement.
- * Version:     0.1.0
+ * Version:     0.1.1
  * Author:      Ghost
  * Text Domain: flash-reservation
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
